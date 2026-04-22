@@ -1,9 +1,9 @@
 export const siteTaskDefinitions = [
   {
     key: 'listing',
-    label: 'Business Listings',
+    label: 'Properties',
     route: '/listings',
-    description: 'Verified businesses and services.',
+    description: 'Homes, rentals, and commercial spaces.',
     contentType: 'listing',
     enabled: true,
   },
