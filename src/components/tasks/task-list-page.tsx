@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, Building2, FileText, Image as ImageIcon, LayoutGrid, Tag, User } from 'lucide-react'
+import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { TaskListClient } from '@/components/tasks/task-list-client'
@@ -57,33 +58,44 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
   }))
   const { recipe } = getFactoryState()
   const layoutKey = recipe.taskLayouts[task as keyof typeof recipe.taskLayouts] || `${task}-${task === 'listing' ? 'directory' : 'editorial'}`
-  const shellClass = variantShells[layoutKey as keyof typeof variantShells] || 'bg-background'
+  const isListingHaven = task === 'listing'
+  const shellClass = isListingHaven
+    ? 'min-h-screen bg-slate-50'
+    : variantShells[layoutKey as keyof typeof variantShells] || 'bg-background'
   const Icon = taskIcons[task] || LayoutGrid
 
   const isDark = ['image-masonry', 'image-portfolio', 'profile-creator'].includes(layoutKey)
-  const ui = isDark
+  const ui = isListingHaven
     ? {
-        muted: 'text-slate-300',
-        panel: 'border border-white/10 bg-white/6',
-        soft: 'border border-white/10 bg-white/5',
-        input: 'border-white/10 bg-white/6 text-white',
-        button: 'bg-white text-slate-950 hover:bg-slate-200',
+        muted: 'text-slate-600',
+        panel: 'border border-slate-200 bg-white',
+        soft: 'border border-slate-200 bg-slate-50',
+        input: 'border border-slate-200 bg-white text-slate-900',
+        button: 'bg-blue-600 text-white hover:bg-blue-700',
       }
-    : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
+    : isDark
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-slate-300',
+          panel: 'border border-white/10 bg-white/6',
+          soft: 'border border-white/10 bg-white/5',
+          input: 'border-white/10 bg-white/6 text-white',
+          button: 'bg-white text-slate-950 hover:bg-slate-200',
         }
-      : {
-          muted: 'text-slate-600',
-          panel: 'border border-slate-200 bg-white',
-          soft: 'border border-slate-200 bg-slate-50',
-          input: 'border border-slate-200 bg-white text-slate-950',
-          button: 'bg-slate-950 text-white hover:bg-slate-800',
-        }
+      : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
+        ? {
+            muted: 'text-[#72594a]',
+            panel: 'border border-[#dbc6b6] bg-white/90',
+            soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
+            input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
+            button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          }
+        : {
+            muted: 'text-slate-600',
+            panel: 'border border-slate-200 bg-white',
+            soft: 'border border-slate-200 bg-slate-50',
+            input: 'border border-slate-200 bg-white text-slate-950',
+            button: 'bg-slate-950 text-white hover:bg-slate-800',
+          }
 
   return (
     <div className={`min-h-screen ${shellClass}`}>
@@ -121,28 +133,143 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'listing-directory' || layoutKey === 'listing-showcase' ? (
-          <section className="mb-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <div className={`rounded-[2rem] p-7 shadow-[0_24px_70px_rgba(15,23,42,0.07)] ${ui.panel}`}>
-              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] opacity-70"><Icon className="h-4 w-4" /> {taskConfig?.label || task}</div>
-              <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-foreground">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-4 max-w-2xl text-sm leading-7 ${ui.muted}`}>Built with a cleaner scan rhythm, stronger metadata grouping, and a structure designed for business discovery rather than editorial reading.</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href={taskConfig?.route || '#'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${ui.button}`}>Explore results <ArrowRight className="h-4 w-4" /></Link>
-                <Link href="/search" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${ui.soft}`}>Open search</Link>
+          <section className="mb-12">
+            {isListingHaven ? (
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+                <div className="grid gap-0 lg:min-h-[280px] lg:grid-cols-[1.12fr_0.88fr]">
+                  <div className="relative min-h-[220px] p-8 text-white sm:p-10">
+                    <div className="absolute inset-0">
+                      <ContentImage
+                        src="https://images.unsplash.com/photo-1600585154340-0ef3e50e1b69?w=1600&q=80"
+                        alt=""
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-slate-950/78" />
+                    </div>
+                    <div className="relative z-10 flex h-full max-w-lg flex-col justify-end lg:justify-center">
+                      <div className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">
+                        <Icon className="h-4 w-4" /> {taskConfig?.label || 'Properties'}
+                      </div>
+                      <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Rental &amp; sale listings</h1>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-200 sm:text-base">
+                        Compare homes and commercial spaces with full addresses, key stats, and up-to-date photos. Filter
+                        by category, then open any card for the full page.
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        <Link
+                          href={taskConfig?.route || '/listings'}
+                          className={`inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-white ${ui.button}`}
+                        >
+                          View directory <ArrowRight className="h-4 w-4" />
+                        </Link>
+                        <Link
+                          href="/search"
+                          className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/20"
+                        >
+                          Search
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <form
+                    className="flex flex-col justify-center border-t border-slate-200 bg-slate-50/90 p-6 sm:p-8 lg:border-l lg:border-t-0"
+                    action={taskConfig?.route || '#'}
+                  >
+                    <p className="text-sm font-semibold text-slate-900">Narrow your results</p>
+                    <p className={`mt-1 text-sm ${ui.muted}`}>
+                      Filter by our standard categories, then apply to reload this page.
+                    </p>
+                    <div className="mt-5">
+                      <label className="text-xs font-medium uppercase tracking-wide text-slate-500">Category</label>
+                      <select
+                        name="category"
+                        defaultValue={normalizedCategory}
+                        className={`mt-2 h-11 w-full rounded-lg px-3 text-sm ${ui.input}`}
+                      >
+                        <option value="all">All categories</option>
+                        {CATEGORY_OPTIONS.map((item) => (
+                          <option key={item.slug} value={item.slug}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <button
+                      type="submit"
+                      className={`mt-4 h-11 w-full rounded-lg text-sm font-semibold sm:w-auto sm:px-6 ${ui.button}`}
+                    >
+                      Apply filters
+                    </button>
+                  </form>
+                </div>
+                <div className="border-t border-slate-200 bg-white px-6 py-4 sm:px-8">
+                  <p className="text-sm text-slate-600">
+                    Need one-to-one help choosing an area?{' '}
+                    <Link href="/contact" className="font-medium text-blue-600 hover:underline">
+                      Message our team
+                    </Link>
+                    . Planning to list?{' '}
+                    <Link href="/create/listing" className="font-medium text-blue-600 hover:underline">
+                      Start a new listing
+                    </Link>
+                    .
+                  </p>
+                </div>
               </div>
-            </div>
-            <form className={`grid gap-3 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ${ui.soft}`} action={taskConfig?.route || '#'}>
-              <div>
-                <label className={`text-xs uppercase tracking-[0.2em] ${ui.muted}`}>Category</label>
-                <select name="category" defaultValue={normalizedCategory} className={`mt-2 h-11 w-full rounded-xl px-3 text-sm ${ui.input}`}>
-                  <option value="all">All categories</option>
-                  {CATEGORY_OPTIONS.map((item) => (
-                    <option key={item.slug} value={item.slug}>{item.name}</option>
-                  ))}
-                </select>
+            ) : (
+              <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+                <div className={`rounded-[2rem] p-7 shadow-[0_24px_70px_rgba(15,23,42,0.07)] ${ui.panel}`}>
+                  <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] opacity-70">
+                    <Icon className="h-4 w-4" /> {taskConfig?.label || task}
+                  </div>
+                  <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+                    {taskConfig?.description || 'Latest posts'}
+                  </h1>
+                  <p className={`mt-4 max-w-2xl text-sm leading-7 ${ui.muted}`}>
+                    Built with a cleaner scan rhythm, stronger metadata grouping, and a structure designed for
+                    business discovery rather than editorial reading.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                      href={taskConfig?.route || '#'}
+                      className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${ui.button}`}
+                    >
+                      Explore results <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <Link
+                      href="/search"
+                      className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${ui.soft}`}
+                    >
+                      Open search
+                    </Link>
+                  </div>
+                </div>
+                <form
+                  className={`grid gap-3 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] ${ui.soft}`}
+                  action={taskConfig?.route || '#'}
+                >
+                  <div>
+                    <label className={`text-xs uppercase tracking-[0.2em] ${ui.muted}`}>Category</label>
+                    <select
+                      name="category"
+                      defaultValue={normalizedCategory}
+                      className={`mt-2 h-11 w-full rounded-xl px-3 text-sm ${ui.input}`}
+                    >
+                      <option value="all">All categories</option>
+                      {CATEGORY_OPTIONS.map((item) => (
+                        <option key={item.slug} value={item.slug}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <button type="submit" className={`h-11 rounded-xl text-sm font-medium ${ui.button}`}>
+                    Apply filters
+                  </button>
+                </form>
               </div>
-              <button type="submit" className={`h-11 rounded-xl text-sm font-medium ${ui.button}`}>Apply filters</button>
-            </form>
+            )}
           </section>
         ) : null}
 
@@ -237,7 +364,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
-        {intro ? (
+        {intro && !isListingHaven ? (
           <section className={`mb-12 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8 ${ui.panel}`}>
             <h2 className="text-2xl font-semibold text-foreground">{intro.title}</h2>
             {intro.paragraphs.map((paragraph) => (

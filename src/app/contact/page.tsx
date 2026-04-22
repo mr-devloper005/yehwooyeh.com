@@ -1,114 +1,112 @@
-import { Building2, FileText, Image as ImageIcon, Mail, MapPin, Phone, Sparkles, Bookmark } from 'lucide-react'
-import { NavbarShell } from '@/components/shared/navbar-shell'
-import { Footer } from '@/components/shared/footer'
-import { SITE_CONFIG } from '@/lib/site-config'
-import { getFactoryState } from '@/design/factory/get-factory-state'
-import { getProductKind } from '@/design/factory/get-product-kind'
-import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/contact-page'
+import Link from 'next/link'
+import { Clock, Mail, MapPin, Phone, Wrench, CreditCard } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { HavenPageShell } from '@/components/haven/haven-page-shell'
+import { HavenContactForm } from '@/components/haven/haven-contact-form'
 
-function getTone(kind: ReturnType<typeof getProductKind>) {
-  if (kind === 'directory') {
-    return {
-      shell: 'bg-[#f8fbff] text-slate-950',
-      panel: 'border border-slate-200 bg-white',
-      soft: 'border border-slate-200 bg-slate-50',
-      muted: 'text-slate-600',
-      action: 'bg-slate-950 text-white hover:bg-slate-800',
-    }
-  }
-  if (kind === 'editorial') {
-    return {
-      shell: 'bg-[#fbf6ee] text-[#241711]',
-      panel: 'border border-[#dcc8b7] bg-[#fffdfa]',
-      soft: 'border border-[#e6d6c8] bg-[#fff4e8]',
-      muted: 'text-[#6e5547]',
-      action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
-    }
-  }
-  if (kind === 'visual') {
-    return {
-      shell: 'bg-[#07101f] text-white',
-      panel: 'border border-white/10 bg-white/6',
-      soft: 'border border-white/10 bg-white/5',
-      muted: 'text-slate-300',
-      action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    }
-  }
-  return {
-    shell: 'bg-[#f7f1ea] text-[#261811]',
-    panel: 'border border-[#ddcdbd] bg-[#fffaf4]',
-    soft: 'border border-[#e8dbce] bg-[#f3e8db]',
-    muted: 'text-[#71574a]',
-    action: 'bg-[#5b2b3b] text-[#fff0f5] hover:bg-[#74364b]',
-  }
-}
+const channels = [
+  { icon: Phone, label: 'Phone', value: '+1 (512) 555-0100', href: 'tel:+15125550100', sub: 'Mon–Fri 9:00–18:00' },
+  { icon: Mail, label: 'Email', value: 'hello@yehwooyeh.com', href: 'mailto:hello@yehwooyeh.com', sub: 'Replies within one business day' },
+  { icon: MapPin, label: 'Service area', value: 'Austin & surrounding', href: '/about', sub: 'Virtual consults available' },
+]
+
+const quick = [
+  { title: 'Schedule a showing', text: 'Mention a listing link or address and preferred times—we will confirm with the property contact.', href: '/listings' },
+  { title: 'Owner & landlord inquiries', text: 'Questions about management, marketing, and tenant support.', href: '/help' },
+  { title: 'Press & partnerships', text: 'Media, brokerage collaborations, and API access—get routed to the right person.', href: 'mailto:hello@yehwooyeh.com' },
+]
 
 export default function ContactPage() {
-  if (CONTACT_PAGE_OVERRIDE_ENABLED) {
-    return <ContactPageOverride />
-  }
-
-  const { recipe } = getFactoryState()
-  const productKind = getProductKind(recipe)
-  const tone = getTone(productKind)
-  const lanes =
-    productKind === 'directory'
-      ? [
-          { icon: Building2, title: 'Business onboarding', body: 'Add listings, verify operational details, and bring your business surface live quickly.' },
-          { icon: Phone, title: 'Partnership support', body: 'Talk through bulk publishing, local growth, and operational setup questions.' },
-          { icon: MapPin, title: 'Coverage requests', body: 'Need a new geography or category lane? We can shape the directory around it.' },
-        ]
-      : productKind === 'editorial'
-        ? [
-            { icon: FileText, title: 'Editorial submissions', body: 'Pitch essays, columns, and long-form ideas that fit the publication.' },
-            { icon: Mail, title: 'Newsletter partnerships', body: 'Coordinate sponsorships, collaborations, and issue-level campaigns.' },
-            { icon: Sparkles, title: 'Contributor support', body: 'Get help with voice, formatting, and publication workflow questions.' },
-          ]
-        : productKind === 'visual'
-          ? [
-              { icon: ImageIcon, title: 'Creator collaborations', body: 'Discuss gallery launches, creator features, and visual campaigns.' },
-              { icon: Sparkles, title: 'Licensing and use', body: 'Reach out about usage rights, commercial requests, and visual partnerships.' },
-              { icon: Mail, title: 'Media kits', body: 'Request creator decks, editorial support, or visual feature placement.' },
-            ]
-          : [
-              { icon: Bookmark, title: 'Collection submissions', body: 'Suggest resources, boards, and links that deserve a place in the library.' },
-              { icon: Mail, title: 'Resource partnerships', body: 'Coordinate curation projects, reference pages, and link programs.' },
-              { icon: Sparkles, title: 'Curator support', body: 'Need help organizing shelves, collections, or profile-connected boards?' },
-            ]
-
   return (
-    <div className={`min-h-screen ${tone.shell}`}>
-      <NavbarShell />
-      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Contact {SITE_CONFIG.name}</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">A support page that matches the product, not a generic contact form.</h1>
-            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Tell us what you are trying to publish, fix, or launch. We will route it through the right lane instead of forcing every request into the same support bucket.</p>
-            <div className="mt-8 space-y-4">
-              {lanes.map((lane) => (
-                <div key={lane.title} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
-                  <lane.icon className="h-5 w-5" />
-                  <h2 className="mt-3 text-xl font-semibold">{lane.title}</h2>
-                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{lane.body}</p>
+    <HavenPageShell
+      title="Get in touch"
+      description="We route every message to the right specialist—listings, showings, care, and billing. Tell us a bit about your situation; we will respond with a clear next step."
+      eyebrow="Contact"
+      actions={
+        <Button asChild className="hidden rounded-md bg-white text-slate-900 hover:bg-slate-100 sm:inline-flex">
+          <Link href="tel:+15125550100">Call now</Link>
+        </Button>
+      }
+      heroTall
+    >
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="space-y-6">
+          <p className="text-sm text-slate-500">
+            Prefer a call? <Link className="font-medium text-blue-600 hover:underline" href="tel:+15125550100">+1 (512) 555-0100</Link>
+          </p>
+          {channels.map((c) => {
+            const Icon = c.icon
+            return (
+              <a
+                key={c.label}
+                href={c.href}
+                className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-shadow hover:shadow-md"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/10 text-blue-600">
+                  <Icon className="h-6 w-6" />
                 </div>
-              ))}
-            </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{c.label}</p>
+                  <p className="mt-1 text-lg font-semibold text-slate-900">{c.value}</p>
+                  <p className="mt-1 text-sm text-slate-600">{c.sub}</p>
+                </div>
+              </a>
+            )
+          })}
+          <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+            <Clock className="h-4 w-4 text-blue-600" />
+            Weekend coverage for maintenance emergencies where properties are under management.
           </div>
+        </div>
 
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <h2 className="text-2xl font-semibold">Send a message</h2>
-            <form className="mt-6 grid gap-4">
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Your name" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Email address" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="What do you need help with?" />
-              <textarea className="min-h-[180px] rounded-2xl border border-current/10 bg-transparent px-4 py-3 text-sm" placeholder="Share the full context so we can respond with the right next step." />
-              <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${tone.action}`}>Send message</button>
-            </form>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-lg font-bold text-slate-900">Send a message</h2>
+          <p className="mt-1 text-sm text-slate-600">Fields marked in your browser can be autofill; your note goes only to our team for this request.</p>
+          <div className="mt-6">
+            <HavenContactForm />
           </div>
+        </div>
+      </div>
+
+      <div className="mt-16 grid gap-4 sm:grid-cols-3">
+        {quick.map((q) => (
+          <div key={q.title} className="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
+            <h3 className="font-semibold text-slate-900">{q.title}</h3>
+            <p className="mt-2 text-sm text-slate-600">{q.text}</p>
+            <Link href={q.href} className="mt-3 inline-block text-sm font-medium text-blue-600 hover:underline">
+              Open →
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-20 space-y-12">
+        <section className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10" id="maintenance">
+          <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600">
+            <Wrench className="h-5 w-5" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">Maintenance requests</h2>
+          <p className="mt-3 text-slate-600 leading-relaxed">
+            If you are a tenant in a Yehwooyeh-managed home, use this contact form with &ldquo;maintenance&rdquo; in the
+            topic, include the unit address, a short description, and any photos. For urgent water or electrical issues
+            that affect safety, call the phone number above and ask for the maintenance line. We will triage and, when
+            applicable, dispatch a vetted partner from our network.
+          </p>
         </section>
-      </main>
-      <Footer />
-    </div>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10" id="rent-payments">
+          <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600">
+            <CreditCard className="h-5 w-5" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">Rent &amp; payments</h2>
+          <p className="mt-3 text-slate-600 leading-relaxed">
+            For billing questions, due dates, receipts, and payment plan options, message us with your lease or listing ID
+            in the form. We never ask for full bank details over email—once we verify your file, you will get the secure
+            portal or accepted payment method for your account. If you are an owner, we can walk through payout
+            timing and tax documents.
+          </p>
+        </section>
+      </div>
+    </HavenPageShell>
   )
 }

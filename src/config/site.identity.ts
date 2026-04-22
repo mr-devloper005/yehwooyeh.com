@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || 'qi10gauj9m',
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Yehwooyeh',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Listing platform',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Property listings & management',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'A listing site for Yehwooyeh, built for clean discovery and structured publishing.',
+    'Yehwooyeh is your listing platform for property discovery, tours, and management support.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'yehwooyeh.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yehwooyeh.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',
