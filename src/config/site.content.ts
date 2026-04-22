@@ -2,24 +2,24 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Listing platform',
+    tagline: 'Property listings & management',
   },
   footer: {
-    tagline: 'Listing platform',
+    tagline: 'Property listings & management',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
-    description: 'A Listing site for Yehwooyeh, built for clean discovery and structured publishing.',
+    badge: 'Property search',
+    title: ['Find the right', 'property with confidence.'],
+    description: 'Browse verified listings, schedule tours, and get support for renting, buying, or management.',
     primaryCta: {
       label: 'Browse listings',
       href: '/listings',
     },
     secondaryCta: {
-      label: 'Explore visuals',
-      href: '/images',
+      label: 'Contact us',
+      href: '/contact',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search listings by area, property type, or keyword',
     focusLabel: 'Focus',
     featureCardBadge: 'latest cover rotation',
     featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
@@ -28,46 +28,49 @@ export const siteContent = {
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
-      description: 'A Listing site for Yehwooyeh, built for clean discovery and structured publishing.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
-      openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+      title: 'Property listings, rentals, and management',
+      description: 'Browse properties for sale and rent, schedule tours, and get management support in one place.',
+      openGraphTitle: 'Property listings, rentals, and management',
+      openGraphDescription: 'Find homes and commercial spaces, with clear details and a team ready to help.',
+      keywords: [
+        'property listings',
+        'rentals',
+        'homes for sale',
+        'property management',
+        'real estate',
+      ],
     },
     introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introTitle: 'A calmer way to find and manage property.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Listings are presented with the details you need to compare options, shortlist spaces, and move forward with confidence.',
+      'Whether you are renting, buying, or looking for full-service management, the experience stays focused on property—without unrelated feeds or clutter.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Search-first flow with property cards, addresses, and key stats.',
+      'Sections for featured listings, tours, and inquiries.',
+      'Consistent blue-and-white visual system for trust and clarity.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'Browse listings',
+      href: '/listings',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'Contact',
+      href: '/contact',
     },
   },
   cta: {
     badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
-    description: 'A Listing site for Yehwooyeh, built for clean discovery and structured publishing.',
+    title: 'Explore property listings and get the support you need.',
+    description: 'Find your next home or commercial space, or talk to us about management and showings.',
     primaryCta: {
       label: 'Browse listings',
       href: '/listings',
     },
     secondaryCta: {
-      label: 'Contact Sales',
+      label: 'Contact us',
       href: '/contact',
     },
   },
@@ -114,13 +117,13 @@ export const taskIntroCopy: Record<
     title: 'Listings, services, and structured pages',
     paragraphs: [
       'Explore listings, services, brands, and discoverable pages across categories. Each entry is organized to make browsing clearer and help visitors quickly understand what a post offers.',
-      'Listings connect naturally with articles, images, resources, and other content types so supporting information stays easy to reach from the same platform.',
-      'Browse by category to compare posts in context, discover related content, and move between formats without losing your place.',
+      'Listings are the core of the platform—use filters and search to compare options, shortlist properties, and plan next steps.',
+      'Browse by category to compare posts in context and find the right fit for your budget and timeline.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'All listings', href: '/listings' },
+      { label: 'Search', href: '/search' },
+      { label: 'Help', href: '/help' },
     ],
   },
   article: {
