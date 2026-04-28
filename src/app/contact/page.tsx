@@ -4,35 +4,54 @@ import { Button } from '@/components/ui/button'
 import { HavenPageShell } from '@/components/haven/haven-page-shell'
 import { HavenContactForm } from '@/components/haven/haven-contact-form'
 
-const channels = [
-  { icon: Phone, label: 'Phone', value: '+1 (512) 555-0100', href: 'tel:+15125550100', sub: 'Mon–Fri 9:00–18:00' },
-  { icon: Mail, label: 'Email', value: 'hello@yehwooyeh.com', href: 'mailto:hello@yehwooyeh.com', sub: 'Replies within one business day' },
-  { icon: MapPin, label: 'Service area', value: 'Austin & surrounding', href: '/about', sub: 'Virtual consults available' },
-]
-
-const quick = [
-  { title: 'Schedule a showing', text: 'Mention a listing link or address and preferred times—we will confirm with the property contact.', href: '/listings' },
-  { title: 'Owner & landlord inquiries', text: 'Questions about management, marketing, and tenant support.', href: '/help' },
-  { title: 'Press & partnerships', text: 'Media, brokerage collaborations, and API access—get routed to the right person.', href: 'mailto:hello@yehwooyeh.com' },
-]
-
 export default function ContactPage() {
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || 'hello@yehwooyeh.com'
+  const contactEmailHref = `mailto:${contactEmail}`
+
+  const channels = [
+    { icon: Phone, label: 'Phone', value: '+1 (512) 555-0100', href: 'tel:+15125550100', sub: 'Mon-Fri 9:00-18:00' },
+    { icon: Mail, label: 'Email', value: contactEmail, href: contactEmailHref, sub: 'Replies within one business day' },
+    { icon: MapPin, label: 'Service area', value: 'Austin & surrounding', href: '/about', sub: 'Virtual consults available' },
+  ]
+
+  const quick = [
+    {
+      title: 'Schedule a showing',
+      text: 'Mention a listing link or address and preferred times-we will confirm with the property contact.',
+      href: '/listings',
+    },
+    { title: 'Owner & landlord inquiries', text: 'Questions about management, marketing, and tenant support.', href: '/help' },
+    {
+      title: 'Press & partnerships',
+      text: 'Media, brokerage collaborations, and API access-get routed to the right person.',
+      href: contactEmailHref,
+    },
+  ]
+
   return (
     <HavenPageShell
       title="Get in touch"
-      description="We route every message to the right specialist—listings, showings, care, and billing. Tell us a bit about your situation; we will respond with a clear next step."
+      description="We route every message to the right specialist-listings, showings, care, and billing. Tell us a bit about your situation; we will respond with a clear next step."
       eyebrow="Contact"
       actions={
-        <Button asChild className="hidden rounded-md bg-white text-slate-900 hover:bg-slate-100 sm:inline-flex">
-          <Link href="tel:+15125550100">Call now</Link>
-        </Button>
+        <div className="hidden items-center gap-2 sm:flex">
+          <Button asChild variant="outline" className="rounded-md border-white/70 bg-transparent text-white hover:bg-white/15">
+            <Link href={contactEmailHref}>Email us</Link>
+          </Button>
+          <Button asChild className="rounded-md bg-white text-slate-900 hover:bg-slate-100">
+            <Link href="tel:+15125550100">Call now</Link>
+          </Button>
+        </div>
       }
       heroTall
     >
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="space-y-6">
           <p className="text-sm text-slate-500">
-            Prefer a call? <Link className="font-medium text-blue-600 hover:underline" href="tel:+15125550100">+1 (512) 555-0100</Link>
+            Prefer a call?{' '}
+            <Link className="font-medium text-blue-600 hover:underline" href="tel:+15125550100">
+              +1 (512) 555-0100
+            </Link>
           </p>
           {channels.map((c) => {
             const Icon = c.icon
@@ -61,7 +80,9 @@ export default function ContactPage() {
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <h2 className="text-lg font-bold text-slate-900">Send a message</h2>
-          <p className="mt-1 text-sm text-slate-600">Fields marked in your browser can be autofill; your note goes only to our team for this request.</p>
+          <p className="mt-1 text-sm text-slate-600">
+            Fields marked in your browser can be autofill; your note goes only to our team for this request.
+          </p>
           <div className="mt-6">
             <HavenContactForm />
           </div>
@@ -74,7 +95,7 @@ export default function ContactPage() {
             <h3 className="font-semibold text-slate-900">{q.title}</h3>
             <p className="mt-2 text-sm text-slate-600">{q.text}</p>
             <Link href={q.href} className="mt-3 inline-block text-sm font-medium text-blue-600 hover:underline">
-              Open →
+              Open &rarr;
             </Link>
           </div>
         ))}
@@ -101,7 +122,7 @@ export default function ContactPage() {
           <h2 className="text-2xl font-bold text-slate-900">Rent &amp; payments</h2>
           <p className="mt-3 text-slate-600 leading-relaxed">
             For billing questions, due dates, receipts, and payment plan options, message us with your lease or listing ID
-            in the form. We never ask for full bank details over email—once we verify your file, you will get the secure
+            in the form. We never ask for full bank details over email-once we verify your file, you will get the secure
             portal or accepted payment method for your account. If you are an owner, we can walk through payout
             timing and tax documents.
           </p>
