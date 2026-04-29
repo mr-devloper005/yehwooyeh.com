@@ -136,50 +136,30 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           <section className="mb-12">
             {isListingHaven ? (
               <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
-                <div className="grid gap-0 lg:min-h-[280px] lg:grid-cols-[1.12fr_0.88fr]">
-                  <div className="relative min-h-[220px] p-8 text-white sm:p-10">
-                    <div className="absolute inset-0">
-                      <ContentImage
-                        src="https://images.unsplash.com/photo-1600585154340-0ef3e50e1b69?w=1600&q=80"
-                        alt=""
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-slate-950/78" />
-                    </div>
-                    <div className="relative z-10 flex h-full max-w-lg flex-col justify-end lg:justify-center">
-                      <div className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">
-                        <Icon className="h-4 w-4" /> {taskConfig?.label || 'Properties'}
+                <div className="grid gap-0 lg:min-h-[300px] lg:grid-cols-[1.2fr_0.8fr]">
+                  <div className="relative min-h-[240px] p-8 text-white sm:p-10">
+                    <div className="absolute inset-0 bg-[#3756a9]" />
+                    <div className="relative z-10 flex h-full max-w-xl flex-col justify-center">
+                      <div className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-blue-100">
+                        <Icon className="h-4 w-4" /> {taskConfig?.label || 'Directory'}
                       </div>
-                      <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Rental &amp; sale listings</h1>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-200 sm:text-base">
-                        Compare homes and commercial spaces with full addresses, key stats, and up-to-date photos. Filter
-                        by category, then open any card for the full page.
+                      <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Company Profile Directory</h1>
+                      <p className="mt-3 text-sm leading-relaxed text-blue-100 sm:text-base">
+                        Explore verified local business profiles with address, contact details, and category-focused cards.
                       </p>
                       <div className="mt-5 flex flex-wrap gap-2">
-                        <Link
-                          href={taskConfig?.route || '/listings'}
-                          className={`inline-flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-white ${ui.button}`}
-                        >
+                        <Link href={taskConfig?.route || '/listings'} className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-[#2b3f80] hover:bg-blue-50">
                           View directory <ArrowRight className="h-4 w-4" />
-                        </Link>
-                        <Link
-                          href="/search"
-                          className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/20"
-                        >
-                          Search
                         </Link>
                       </div>
                     </div>
                   </div>
                   <form
-                    className="flex flex-col justify-center border-t border-slate-200 bg-slate-50/90 p-6 sm:p-8 lg:border-l lg:border-t-0"
+                    className="flex flex-col justify-center border-t border-slate-200 bg-[#eef1f4] p-6 sm:p-8 lg:border-l lg:border-t-0"
                     action={taskConfig?.route || '#'}
                   >
-                    <p className="text-sm font-semibold text-slate-900">Narrow your results</p>
-                    <p className={`mt-1 text-sm ${ui.muted}`}>
-                      Filter by our standard categories, then apply to reload this page.
-                    </p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900">Company Profile</p>
+                    <p className={`mt-1 text-sm ${ui.muted}`}>Filter the listing board by category.</p>
                     <div className="mt-5">
                       <label className="text-xs font-medium uppercase tracking-wide text-slate-500">Category</label>
                       <select
@@ -197,7 +177,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
                     </div>
                     <button
                       type="submit"
-                      className={`mt-4 h-11 w-full rounded-lg text-sm font-semibold sm:w-auto sm:px-6 ${ui.button}`}
+                      className="mt-4 h-11 w-full rounded-lg bg-[#3756a9] text-sm font-semibold text-white hover:bg-[#2f488f] sm:w-auto sm:px-6"
                     >
                       Apply filters
                     </button>
