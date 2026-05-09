@@ -47,36 +47,7 @@ export default function ContactPage() {
     >
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="space-y-6">
-          <p className="text-sm text-slate-500">
-            Prefer a call?{' '}
-            <Link className="font-medium text-blue-600 hover:underline" href="tel:+15125550100">
-              +1 (512) 555-0100
-            </Link>
-          </p>
-          {channels.map((c) => {
-            const Icon = c.icon
-            return (
-              <a
-                key={c.label}
-                href={c.href}
-                className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-shadow hover:shadow-md"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/10 text-blue-600">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{c.label}</p>
-                  <p className="mt-1 text-lg font-semibold text-slate-900">{c.value}</p>
-                  <p className="mt-1 text-sm text-slate-600">{c.sub}</p>
-                </div>
-              </a>
-            )
-          })}
-          <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
-            <Clock className="h-4 w-4 text-blue-600" />
-            Weekend coverage for maintenance emergencies where properties are under management.
-          </div>
-        </div>
+                            </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <h2 className="text-lg font-bold text-slate-900">Send a message</h2>
