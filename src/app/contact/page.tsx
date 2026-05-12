@@ -1,104 +1,56 @@
-import Link from 'next/link'
-import { Clock, Mail, MapPin, Phone, Wrench, CreditCard } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { HavenPageShell } from '@/components/haven/haven-page-shell'
-import { HavenContactForm } from '@/components/haven/haven-contact-form'
+import { Mail, MessageSquareText, ShieldCheck } from 'lucide-react';
+
+import { ContactLeadForm } from '@/components/shared/contact-lead-form';
+import { Footer } from '@/components/shared/footer';
+import { NavbarShell } from '@/components/shared/navbar-shell';
+
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Yehwooyeh';
+
+const contactHighlights = [
+  { icon: Mail, title: 'Direct response', copy: 'Your message is saved securely and routed to the right team.' },
+  { icon: MessageSquareText, title: 'Clear details', copy: 'Share your requirement, question, or collaboration idea in one place.' },
+  { icon: ShieldCheck, title: 'Reliable follow-up', copy: 'We keep the request record so every conversation stays traceable.' },
+];
 
 export default function ContactPage() {
-  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || 'hello@yehwooyeh.com'
-  const contactEmailHref = `mailto:${contactEmail}`
-
-  const channels = [
-    { icon: Phone, label: 'Phone', value: '+1 (512) 555-0100', href: 'tel:+15125550100', sub: 'Mon-Fri 9:00-18:00' },
-    { icon: Mail, label: 'Email', value: contactEmail, href: contactEmailHref, sub: 'Replies within one business day' },
-    { icon: MapPin, label: 'Service area', value: 'Austin & surrounding', href: '/about', sub: 'Virtual consults available' },
-  ]
-
-  const quick = [
-    {
-      title: 'Schedule a showing',
-      text: 'Mention a listing link or address and preferred times-we will confirm with the property contact.',
-      href: '/listings',
-    },
-    { title: 'Owner & landlord inquiries', text: 'Questions about management, marketing, and tenant support.', href: '/help' },
-    {
-      title: 'Press & partnerships',
-      text: 'Media, brokerage collaborations, and API access-get routed to the right person.',
-      href: contactEmailHref,
-    },
-  ]
-
   return (
-    <HavenPageShell
-      title="Get in touch"
-      description="We route every message to the right specialist-listings, showings, care, and billing. Tell us a bit about your situation; we will respond with a clear next step."
-      eyebrow="Contact"
-      actions={
-        <div className="hidden items-center gap-2 sm:flex">
-          <Button asChild variant="outline" className="rounded-md border-white/70 bg-transparent text-white hover:bg-white/15">
-            <Link href={contactEmailHref}>Email us</Link>
-          </Button>
-          <Button asChild className="rounded-md bg-white text-slate-900 hover:bg-slate-100">
-            <Link href="tel:+15125550100">Call now</Link>
-          </Button>
-        </div>
-      }
-      heroTall
-    >
-      <div className="grid gap-10 lg:grid-cols-2">
-        <div className="space-y-6">
-                            </div>
+    <div className="min-h-screen bg-[#f7f1e8] text-stone-950">
+      <NavbarShell />
+      <main>
+        <section className="relative overflow-hidden px-6 py-20 md:px-10 lg:px-16">
+          <div className="absolute left-[-10%] top-10 h-72 w-72 rounded-full bg-amber-200/40 blur-3xl" />
+          <div className="absolute bottom-0 right-[-8%] h-80 w-80 rounded-full bg-stone-300/50 blur-3xl" />
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <h2 className="text-lg font-bold text-slate-900">Send a message</h2>
-          <p className="mt-1 text-sm text-slate-600">
-            Fields marked in your browser can be autofill; your note goes only to our team for this request.
-          </p>
-          <div className="mt-6">
-            <HavenContactForm />
-          </div>
-        </div>
-      </div>
+          <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.35em] text-stone-500">Contact</p>
+              <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[0.95] tracking-[-0.06em] text-stone-950 md:text-7xl">
+                Let&apos;s talk about your next move.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-700">
+                Use this form to reach {siteName}. Your request will be recorded and shared with the support team for follow-up.
+              </p>
 
-      <div className="mt-16 grid gap-4 sm:grid-cols-3">
-        {quick.map((q) => (
-          <div key={q.title} className="rounded-xl border border-slate-200 bg-slate-50/80 p-5">
-            <h3 className="font-semibold text-slate-900">{q.title}</h3>
-            <p className="mt-2 text-sm text-slate-600">{q.text}</p>
-            <Link href={q.href} className="mt-3 inline-block text-sm font-medium text-blue-600 hover:underline">
-              Open &rarr;
-            </Link>
-          </div>
-        ))}
-      </div>
+              <div className="mt-8 grid gap-4">
+                {contactHighlights.map((item) => (
+                  <div key={item.title} className="flex gap-4 rounded-3xl border border-stone-200 bg-white/60 p-5 shadow-sm">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-stone-950 text-white">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h2 className="text-base font-black text-stone-950">{item.title}</h2>
+                      <p className="mt-1 text-sm leading-6 text-stone-600">{item.copy}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-      <div className="mt-20 space-y-12">
-        <section className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10" id="maintenance">
-          <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600">
-            <Wrench className="h-5 w-5" />
+            <ContactLeadForm />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Maintenance requests</h2>
-          <p className="mt-3 text-slate-600 leading-relaxed">
-            If you are a tenant in a Yehwooyeh-managed home, use this contact form with &ldquo;maintenance&rdquo; in the
-            topic, include the unit address, a short description, and any photos. For urgent water or electrical issues
-            that affect safety, call the phone number above and ask for the maintenance line. We will triage and, when
-            applicable, dispatch a vetted partner from our network.
-          </p>
         </section>
-
-        <section className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10" id="rent-payments">
-          <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600">
-            <CreditCard className="h-5 w-5" />
-          </div>
-          <h2 className="text-2xl font-bold text-slate-900">Rent &amp; payments</h2>
-          <p className="mt-3 text-slate-600 leading-relaxed">
-            For billing questions, due dates, receipts, and payment plan options, message us with your lease or listing ID
-            in the form. We never ask for full bank details over email-once we verify your file, you will get the secure
-            portal or accepted payment method for your account. If you are an owner, we can walk through payout
-            timing and tax documents.
-          </p>
-        </section>
-      </div>
-    </HavenPageShell>
-  )
+      </main>
+      <Footer />
+    </div>
+  );
 }
