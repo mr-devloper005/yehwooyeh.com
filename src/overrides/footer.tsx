@@ -8,33 +8,6 @@ export const FOOTER_OVERRIDE_ENABLED = true
 export function FooterOverride() {
   return (
     <footer className="bg-slate-950 text-slate-200">
-      <div className="mx-auto max-w-7xl border-b border-white/10 px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-white">Newsletter signup</h2>
-            <p className="mt-1 text-sm text-slate-400">Get new listings and market updates in your inbox.</p>
-          </div>
-          <form
-            className="flex w-full max-w-md flex-col gap-2 sm:flex-row"
-            onSubmit={(e) => e.preventDefault()}
-            action="#"
-          >
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              className="h-12 flex-1 rounded-md border border-white/15 bg-white/5 px-4 text-sm text-white placeholder:text-slate-500"
-            />
-            <button
-              type="submit"
-              className="h-12 shrink-0 rounded-md bg-blue-600 px-6 text-sm font-semibold text-white hover:bg-blue-700"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </div>
-
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -72,12 +45,7 @@ export function FooterOverride() {
                   Learn about our process
                 </Link>
               </li>
-              <li>
-                <Link href="/contact" className="hover:text-white">
-                  Get in touch
-                </Link>
-              </li>
-            </ul>
+                          </ul>
           </div>
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Services</h3>
@@ -121,7 +89,7 @@ export function FooterOverride() {
           </div>
         </div>
         <p className="mt-10 text-center text-xs text-slate-500 sm:text-sm">
-          © {new Date().getFullYear()} {SITE_CONFIG.name} — All rights reserved
+          © {SITE_CONFIG.name} — All rights reserved
         </p>
       </div>
     </footer>
